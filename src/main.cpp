@@ -1,5 +1,23 @@
 #include "main.h"
 
+pros::Controller master(pros::E_CONTROLLER_MASTER);
+
+pros::Motor driveLFF(9, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor driveLF(10,pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor driveLB(19, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor driveLBB(20,pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+
+pros::Motor driveRFF(1, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor driveRF(2,pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor driveRB(11, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor driveRBB(12,pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+
+pros::Motor catapultL(15, pros::E_MOTOR_GEAR_RED, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor catapultR(16, pros::E_MOTOR_GEAR_RED, true, pros::E_MOTOR_ENCODER_DEGREES);
+
+pros::Imu imu(17);
+
+
 /**
  * A callback function for LLEMU's center button.
  *
@@ -7,13 +25,7 @@
  * "I was pressed!" and nothing.
  */
 void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
+	
 }
 
 /**
@@ -23,10 +35,15 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+	driveLFF.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	driveLF.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	driveLB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	driveLBB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
-	pros::lcd::register_btn1_cb(on_center_button);
+	driveRFF.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	driveRF.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	driveRB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	driveRBB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 }
 
 /**
@@ -74,5 +91,9 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	//Test test test
+	while (true){
+		double y_l = -master.get_analog(ANALOG_LEFT_Y);
+		double y_r = master.get_analog(ANALOG_LEFT_Y);
+		pros::delay(20);
+	}
 }

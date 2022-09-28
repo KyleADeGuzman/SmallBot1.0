@@ -54,6 +54,24 @@
 // using namespace pros::literals;
 // using namespace okapi;
 
+extern pros::Controller master;
+
+extern pros::Motor driveLFF;
+extern pros::Motor driveLF;
+extern pros::Motor driveLB;
+extern pros::Motor driveLBB;
+
+extern pros::Motor driveRFF;
+extern pros::Motor driveRF;
+extern pros::Motor driveRB;
+extern pros::Motor driveRBB;
+
+extern pros::IMU imu;
+
+extern pros::Motor catapultL;
+extern pros::Motor catapultR;
+
+
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
  * that they can be called from user code (i.e. calling autonomous from a
